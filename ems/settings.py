@@ -29,6 +29,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'emsdemo.spensol.com',
     'www.emsdemo.spensol.com',
+    '*',
 ]
 
 

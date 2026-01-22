@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>{% block title %}Event Management Company{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Montserrat:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Montserrat', Arial, sans-serif;
+            background-image: url('https://images.unsplash.com/photo-1653821355736-0c2598d0a63e?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZXZlbnQlMjBwbGFubmluZ3xlbnwwfHwwfHx8MA%3D%3D&fm=jpg&q=60&w=3000');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ============================
+                FULL-SCREEN HERO SLIDESHOW
+            ============================= */
+        .hero-bg {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .hero-bg-slide {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+        }
+
+        .hero-bg-slide.active {
+            opacity: 1;
+        }
+
+        .hero-bg-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0);
+            z-index: 10;
+        }
+
+        .hero-bg-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: #fff;
+            z-index: 20;
+            font-family: 'Cinzel', serif;
+        }
+
+        .hero-bg-content h1 {
+            font-size: 65px;
+            margin: 0;
+            text-shadow: 2px 3px 6px rgba(0, 0, 0, 0.6);
+        }
+
+        .hero-bg-content p {
+            font-size: 24px;
+            font-family: 'Montserrat', sans-serif;
+            margin-top: 10px;
+        }
+
+        @media(max-width:600px) {
+            .hero-bg-content h1 {
+                font-size: 40px;
+            }
+
+            .hero-bg-content p {
+                font-size: 18px;
+            }
+        }
+
+        /* Popup window style */
+        .dream-popup {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: black;
+            padding: 25px 20px 18px 20px;
+            border-radius: 14px;
+            color: #fff;
+            box-shadow: 0 2px 18px rgba(0, 0, 0, 0.14);
+            width: 340px;
+            max-width: 90vw;
+            z-index: 1002;
+            text-align: center;
+            font-family: 'Cinzel', serif;
+            animation: fade-in 0.6s;
+        }
+
+        @keyframes fade-in {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .dream-popup h2 {
+            font-size: 24px;
+            margin: 0 0 8px 0;
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+        }
+
+        .dream-popup p {
+            margin: 0 0 16px 0;
+            font-size: 15px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .dream-popup .btn-row {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 8px;
+        }
+
+        .dream-popup button {
+            background: #fff;
+            color: #d61b35;
+            border: none;
+            border-radius: 28px;
+            font-size: 18px;
+            font-weight: 700;
+            font-family: 'Cinzel', serif;
+            width: 90px;
+            padding: 9px 0;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+        }
+
+        .dream-popup button:hover {
+            background: #ffecf1;
+        }
+
+        .dream-popup .close-btn {
+            position: absolute;
+            top: 9px;
+            right: 16px;
+            font-size: 21px;
+            color: #fff;
+            cursor: pointer;
+            opacity: 0.6;
+            background: none;
+            border: none;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background-color: #111;
+            padding: 15px 30px;
+        }
+
+        .navbar a {
+            color: #e6d6b5;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 8px 12px;
+            transition: color 0.3s;
+        }
+
+        .navbar a:hover {
+            color: #ffcc80;
+        }
+
+        .logo {
+            font-family: 'Cinzel', serif;
+            font-size: 60px;
+            color: #f5d47e;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+            letter-spacing: 2px;
+            padding: 0 20px;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropbtn {
+            background: none;
+            border: none;
+            color: #e6d6b5;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 8px 12px;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #222;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1005;
+        }
+
+        .dropdown-content a {
+            color: #e6d6b5;
+            padding: 10px 15px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #333;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        h1,
+        p {
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 48px;
+            font-family: 'Cinzel', serif;
+            margin-top: 60px;
+            color: #654321;
+        }
+
+        p {
+            font-size: 22px;
+            text-transform: uppercase;
+            color: #7c4b2a;
+            margin-bottom: 60px;
+        }
+
+        /* Footer styling */
+        footer {
+            margin-top: auto;
+            background: black;
+            color: #fff;
+            padding: 22px 0 4px 0;
+            font-size: 18px;
+        }
+
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 18px;
+        }
+
+        .footer-col {
+            flex: 1;
+            min-width: 190px;
+            margin: 10px 6px;
+        }
+
+        .footer-logo {
+            font-family: 'Cinzel', serif;
+            font-size: 22px;
+            color: #ffaad4;
+            font-weight: bold;
+        }
+
+        .footer-address {
+            margin: 9px 0 0 0;
+            color: #fff !important;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            color: #fff;
+        }
+
+        .footer-links li {
+            margin-bottom: 5px;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: #fff;
+            font-family: 'Cinzel', serif;
+            font-size: 15px;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: #ffecb3;
+            text-decoration: underline;
+        }
+
+        .footer-copyright {
+            text-align: center;
+            margin-top: 10px;
+            color: #fff;
+            font-size: 12px;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 0.03em;
+        }
+
+        @media (max-width: 900px) {
+            .footer-container {
+                flex-direction: column;
+            }
+
+            .footer-col {
+                text-align: left;
+            }
+
+            .dream-popup {
+                width: 96vw;
+                bottom: 10px;
+                right: 2vw;
+            }
+        }
+
+        /* Generic Card Styling for dynamic content */
+        .event-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .event-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .event-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .event-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .event-card-content {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .event-card-content h3 {
+            font-family: 'Cinzel', serif;
+            margin: 0 0 10px 0;
+            color: #654321;
+        }
+
+        .event-card-content p {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .btn-view {
+            display: inline-block;
+            background: #111;
+            color: #e6d6b5;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-family: 'Cinzel', serif;
+            transition: background 0.3s;
+        }
+
+        .btn-view:hover {
+            background: #333;
+        }
+    </style>
+    {% block extra_head %}{% endblock %}
+</head>
+
+<body>
+    <div class="navbar">
+        <a href="{% url 'home' %}">Home</a>
+        <div class="dropdown">
+            <button class="dropbtn">About <span style="font-size:12px;">&#x25BC;</span></button>
+            <div class="dropdown-content">
+                <a href="{% url 'our_team' %}">Our Team</a>
+                <a href="{% url 'our_story' %}">Our Story</a>
+            </div>
+        </div>
+        <div class="logo"><i>TriAura</i></div>
+        {% if user.is_authenticated %}
+        <form action="{% url 'logout' %}" method="post" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="login-btn"
+                style="background: none; border: none; color: #e6d6b5; cursor: pointer; font-family: 'Montserrat', sans-serif; font-size: 16px; padding: 8px 12px; transition: color 0.3s;">
+                Logout ({{ user.username }})
+            </button>
+        </form>
+        {% else %}
+        <a href="{% url 'login' %}" class="login-btn">Login</a>
+        <a href="{% url 'register' %}">Register</a>
+        {% endif %}
+        <a href="{% url 'enquiry' %}">Enquiry</a>
+        <a href="{% url 'contact' %}">Contact Us</a>
+    </div>
+
+    {% if messages %}
+    <div style="padding: 20px; text-align: center;">
+        {% for message in messages %}
+        <div style="background: #d4edda; color: #155724; padding: 10px; margin-bottom: 10px; border-radius: 5px;">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <div class="footer-logo">TriAura Events.com</div>
+                <div class="footer-address">
+                    Delivering Happiness<br><br>
+                    <strong>Address</strong><br>
+                    TriAura Events<br>
+                    (A brand of Caladium Systems Pvt Limited)<br>
+                    Cheramanpalli, kodungallur,<br>
+                    Thrissur, Kerala, India.<br><br>
+                    India +91-9884880991<br>
+                    info@triAuraevents123.com
+                </div>
+            </div>
+            <div class="footer-col">
+                <ul class="footer-links">
+                    <li><a href="{% url 'home' %}">Home Page</a></li>
+                    <li><a href="{% url 'our_team' %}">About Us</a></li>
+                    <li><a href="{% url 'our_story' %}">Our Story</a></li>
+                    <li><a href="{% url 'contact' %}">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <ul class="footer-links">
+                    <li><a href="#">Aesthetic wedding decor</a></li>
+                    <li><a href="#">Christian Wedding Decor</a></li>
+                    <li><a href="#">Engagement Decor</a></li>
+                    <li><a href="#">Haldi Decor</a></li>
+                    <li><a href="#">Hindu wedding Decor</a></li>
+                    <li><a href="#">Mehendi</a></li>
+                    <li><a href="#">Muslim Wedding Decor</a></li>
+                    <li><a href="#">Birthday Decor</a></li>
+                    <li><a href="#">Corporate Decor</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            &copy; 2025 TriAura events, a brand of Caladium Systems Pvt Limited. All Rights Reserved.
+        </div>
+    </footer>
+
+    {% block extra_js %}{% endblock %}
+</body>
+
+</html>

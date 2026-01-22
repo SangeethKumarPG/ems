@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+
+{% block title %}Our Team - TriAura{% endblock %}
+
+{% block extra_head %}
+<style>
+    .hero {
+        background: url('https://i.pinimg.com/1200x/0d/e5/15/0de515a6c91a736c799709997e163f47.jpg') no-repeat center center/cover;
+        color: white;
+        text-align: center;
+        padding: 100px 20px;
+    }
+
+    .hero h1 {
+        font-size: 60px;
+        margin-bottom: 10px;
+        letter-spacing: 2px;
+        font-family: 'Cinzel', serif;
+    }
+
+    .hero p {
+        font-size: 22px;
+        max-width: 700px;
+        margin: 0 auto;
+        line-height: 1.5;
+    }
+
+    .content {
+        max-width: 1000px;
+        margin: 60px auto;
+        background-color: #fff;
+        border-radius: 15px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        padding: 40px;
+        line-height: 1.8;
+    }
+
+    .content h2 {
+        text-align: center;
+        color: #222;
+        font-size: 36px;
+        margin-bottom: 30px;
+        font-family: 'Cinzel', serif;
+    }
+
+    .content p {
+        font-size: 18px;
+        text-align: justify;
+        margin-bottom: 20px;
+    }
+
+    .team {
+        text-align: center;
+        padding: 50px 20px;
+        background-color: #f8f8f8;
+    }
+
+    .team h2 {
+        font-size: 36px;
+        color: #222;
+        margin-bottom: 30px;
+        font-family: 'Cinzel', serif;
+    }
+
+    .team-container {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 30px;
+    }
+
+    .team-member {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        width: 280px;
+        text-align: center;
+        padding: 15px;
+        transition: transform 0.3s ease;
+    }
+
+    .team-member:hover {
+        transform: translateY(-10px);
+    }
+
+    .team-member img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+
+    .team-member h3 {
+        margin-top: 15px;
+        font-size: 20px;
+        color: #333;
+        font-family: 'Cinzel', serif;
+    }
+
+    .team-member p.role {
+        font-size: 16px;
+        color: #ca8e6e;
+        margin-bottom: 8px;
+        font-weight: bold;
+    }
+
+    .team-member p {
+        font-size: 15px;
+        color: #666;
+        line-height: 1.5;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <h1>Our Team</h1>
+    <p>Meet the visionaries, creators, and dreamers who make every event unforgettable.</p>
+</div>
+
+<div class="content">
+    <h2>The Creative Minds Behind TriAura</h2>
+    <p>Behind every successful event lies a team of passionate creators — and at <strong>TriAura</strong>, our people
+        are the true heartbeat of our success.
+        We are a close-knit group of visionaries, designers, planners, coordinators, and storytellers who share a common
+        passion: crafting unforgettable experiences that touch hearts and create lifelong memories.</p>
+
+    <p>Each member of our team brings a unique skill, creative spark, and unwavering dedication to the table.
+        From the first brainstorming session to the final spotlight moment, our team works in perfect harmony to make
+        sure every detail is thoughtfully executed and every celebration shines with perfection.</p>
+
+    <p>At TriAura, teamwork is more than just collaboration — it’s a shared commitment to excellence.
+        Our designers breathe life into ideas through color, texture, and aesthetics.
+        Our planners ensure flawless timelines, logistics, and vendor coordination.
+        Our decorators turn spaces into visual masterpieces that reflect your story and style.</p>
+</div>
+
+<div class="team">
+    <h2>Meet Our Core Team</h2>
+    <div class="team-container">
+        <div class="team-member">
+            <img src="https://images.unsplash.com/photo-1603415526960-f7e0328c63b1" alt="Aleena.M.T">
+            <h3>Aleena.M.T</h3>
+            <p class="role">Creative Director</p>
+            <p>Aleena leads the creative vision at TriAura, turning every event into an artistic expression filled with
+                color, detail, and emotion.</p>
+        </div>
+
+        <div class="team-member">
+            <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e" alt="Arudha">
+            <h3>Arudha</h3>
+            <p class="role">Event Planner</p>
+            <p>Arudha brings structure and flow to our events. His precision and passion ensure every celebration runs
+                flawlessly from start to finish.</p>
+        </div>
+
+        <div class="team-member">
+            <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61" alt="Nimisha.A.S">
+            <h3>Nimisha.A.S</h3>
+            <p class="role">Client Experience Manager</p>
+            <p>Nimisha connects with clients to understand their dreams, ensuring every TriAura event feels personal,
+                memorable, and perfectly executed.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

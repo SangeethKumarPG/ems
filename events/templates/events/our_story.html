@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+
+{% block title %}Our Story - TriAura{% endblock %}
+
+{% block extra_head %}
+<style>
+    .hero {
+        background: url('https://i.pinimg.com/736x/15/19/ad/1519add4572da57b5ff06d5c81548cf3.jpg') no-repeat center center/cover;
+        color: white;
+        text-align: center;
+        padding: 120px 20px;
+    }
+
+    .hero h1 {
+        font-size: 60px;
+        margin-bottom: 15px;
+        letter-spacing: 2px;
+        font-family: 'Cinzel', serif;
+    }
+
+    .hero p {
+        font-size: 22px;
+        max-width: 700px;
+        margin: 0 auto;
+        line-height: 1.6;
+    }
+
+    .story-section {
+        max-width: 1000px;
+        margin: 60px auto;
+        background-color: #fff;
+        border-radius: 15px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        padding: 40px;
+        line-height: 1.8;
+    }
+
+    .story-section h2 {
+        text-align: center;
+        color: #222;
+        font-size: 36px;
+        margin-bottom: 30px;
+        font-family: 'Cinzel', serif;
+    }
+
+    .story-section p {
+        font-size: 18px;
+        text-align: justify;
+        margin-bottom: 20px;
+    }
+
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+        max-width: 1200px;
+        margin: 60px auto;
+        padding: 0 20px;
+    }
+
+    .card {
+        background: white;
+        padding: 30px 25px;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .card h2 {
+        color: #ca8e6e;
+        font-size: 26px;
+        margin-bottom: 15px;
+        font-family: 'Cinzel', serif;
+    }
+
+    .card p {
+        font-size: 16px;
+        line-height: 1.7;
+        color: #555;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <h1>Our Story</h1>
+    <p>Discover the journey behind TriAura — where creativity, connection, and celebration come together to create
+        magic.</p>
+</div>
+
+<div class="story-section">
+    <h2>The Journey of TriAura</h2>
+    <p>Every great celebration begins with a spark — a dream to make people smile, connect, and cherish life’s most
+        special moments.
+        The story of <strong>TriAura</strong> began with that very spark — a shared passion among three creative minds
+        to redefine how events are experienced, not just organized.</p>
+
+    <p>What started as a small idea — planning intimate gatherings for friends and family — soon blossomed into a
+        vision:
+        <strong>to craft events that reflect emotions, stories, and individuality.</strong>
+        We realized that each event has its own aura — a unique energy that deserves to shine.
+        That belief became the foundation of <strong>TriAura</strong> — a name that symbolizes the three auras that
+        guide us in everything we do:
+        <em>Creativity, Connection, and Celebration.</em>
+    </p>
+
+    <p>From our humble beginnings, we’ve grown into a full-service event management company that blends imagination with
+        precision.
+        Whether it’s a vibrant Mehendi celebration, a dreamy wedding, a sophisticated corporate event, or a cultural
+        festival,
+        we bring your vision to life with artistry, passion, and detail.</p>
+</div>
+
+<div class="grid-container">
+    <div class="card">
+        <h2>Our Vision</h2>
+        <p>To become one of India’s most trusted event management brands known for creativity, authenticity, and
+            excellence.</p>
+    </div>
+    <div class="card">
+        <h2>Our Values</h2>
+        <p>At TriAura, our values are the foundation of everything we do — Integrity, Innovation, and Impact.</p>
+    </div>
+    <div class="card">
+        <h2>Milestones</h2>
+        <p>From our humble beginnings in 2022 to designing over 200 unforgettable events filled with creativity and
+            success.</p>
+    </div>
+    <div class="card">
+        <h2>Future Goals</h2>
+        <p>TriAura aims to expand its reach across India, embracing modern trends and sustainable practices.</p>
+    </div>
+</div>
+{% endblock %}

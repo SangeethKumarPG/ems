@@ -1,0 +1,185 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact Us - TriAura{% endblock %}
+
+{% block extra_head %}
+<style>
+    .header-banner {
+        background: #181818;
+        text-align: center;
+        padding: 60px 0;
+        color: #fff;
+    }
+
+    .header-banner h1 {
+        font-family: 'Cinzel', serif;
+        font-size: 54px;
+        margin: 0;
+    }
+
+    .contact-container {
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 1200px;
+        margin: -30px auto 60px auto;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        gap: 0;
+    }
+
+    .contact-info {
+        flex: 1;
+        min-width: 300px;
+        padding: 60px;
+        background: #fdfaf5;
+    }
+
+    .contact-info h2 {
+        font-family: 'Cinzel', serif;
+        font-size: 40px;
+        color: #222;
+        margin-bottom: 20px;
+    }
+
+    .contact-info p {
+        font-size: 18px;
+        line-height: 1.6;
+        color: #555;
+        margin-bottom: 30px;
+    }
+
+    .detail-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        font-size: 18px;
+    }
+
+    .detail-icon {
+        width: 50px;
+        height: 50px;
+        background: #ca8e6e;
+        color: #fff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 20px;
+        font-size: 20px;
+    }
+
+    .contact-form-side {
+        flex: 1;
+        min-width: 300px;
+        padding: 60px;
+        background: #fff;
+    }
+
+    .contact-form-side h2 {
+        font-family: 'Cinzel', serif;
+        font-size: 32px;
+        margin-bottom: 10px;
+    }
+
+    .contact-form-side p {
+        color: #666;
+        margin-bottom: 30px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 16px;
+        box-sizing: border-box;
+    }
+
+    .btn-submit {
+        background: #111;
+        color: #e6d6b5;
+        border: none;
+        padding: 15px 40px;
+        font-size: 18px;
+        font-family: 'Cinzel', serif;
+        border-radius: 8px;
+        cursor: pointer;
+        width: 100%;
+        transition: background 0.3s;
+    }
+
+    .btn-submit:hover {
+        background: #333;
+    }
+
+    @media (max-width: 768px) {
+        .contact-container {
+            margin: 20px;
+        }
+
+        .contact-info,
+        .contact-form-side {
+            padding: 40px 20px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="header-banner">
+    <h1>Contact Us</h1>
+</div>
+
+<div class="contact-container">
+    <div class="contact-info">
+        <h2>Connect With Us</h2>
+        <p>TriAura Events is happy to hear from you! Reach out to us for any queries regarding our event services.</p>
+
+        <div class="detail-item">
+            <div class="detail-icon"><i class="fas fa-phone"></i></div>
+            <span>+91 9496 321 275</span>
+        </div>
+        <div class="detail-item">
+            <div class="detail-icon"><i class="fab fa-whatsapp"></i></div>
+            <span>+91 9496 321 275</span>
+        </div>
+        <div class="detail-item">
+            <div class="detail-icon"><i class="fas fa-envelope"></i></div>
+            <span>triauraevents123@gmail.com</span>
+        </div>
+        <div class="detail-item">
+            <div class="detail-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <span>Cheramanpalli, Kodungallur, Thrissur, Kerala</span>
+        </div>
+    </div>
+
+    <div class="contact-form-side">
+        <h2>Get in Touch</h2>
+        <p>Fill out the form below and we'll get back to you shortly.</p>
+
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <input type="text" name="first_name" placeholder="First Name" required>
+            </div>
+            <div class="form-group">
+                <input type="text" name="last_name" placeholder="Last Name" required>
+            </div>
+            <div class="form-group">
+                <input type="email" name="email" placeholder="Email Address" required>
+            </div>
+            <div class="form-group">
+                <textarea name="message" rows="4" placeholder="Your Message" required></textarea>
+            </div>
+            <button type="submit" class="btn-submit">SEND MESSAGE</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

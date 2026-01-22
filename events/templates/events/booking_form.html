@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}Book {{ event.title }} - TriAura{% endblock %}
+
+{% block content %}
+<div style="background: #fff; padding: 100px 20px 60px 20px; min-height: 80vh;">
+    <div
+        style="max-width: 600px; margin: 0 auto; background: #f9f9f9; padding: 40px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.05);">
+        <h1 style="text-align: center; margin-top: 0; color: #111; font-size: 32px;">Book Your Event</h1>
+        <p style="text-align: center; margin-bottom: 40px; color: #666;">Provide us with some details and we'll get back
+            to you.</p>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <div style="margin-bottom: 25px;">
+                <label style="display: block; margin-bottom: 8px; font-weight: bold; color: #444;">Event Type</label>
+                <input type="text" value="{{ event.title }}" readonly
+                    style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; background: #eee; box-sizing: border-box;">
+            </div>
+
+            <div style="margin-bottom: 25px;">
+                <label for="event_sub_type"
+                    style="display: block; margin-bottom: 8px; font-weight: bold; color: #444;">Event Sub-Type
+                    (optional)</label>
+                <input type="text" id="event_sub_type" name="event_sub_type" placeholder="e.g. Mehendi, Haldi"
+                    style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box;">
+            </div>
+
+            <div style="margin-bottom: 25px;">
+                <label for="date" style="display: block; margin-bottom: 8px; font-weight: bold; color: #444;">Preferred
+                    Date</label>
+                <input type="date" id="date" name="date" required
+                    style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box;">
+            </div>
+
+            <div style="margin-bottom: 25px;">
+                <label for="venue" style="display: block; margin-bottom: 8px; font-weight: bold; color: #444;">Venue /
+                    Location</label>
+                <input type="text" id="venue" name="venue" required placeholder="Where will the event be held?"
+                    style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box;">
+            </div>
+
+            <div style="margin-bottom: 25px;">
+                <label for="additional_details"
+                    style="display: block; margin-bottom: 8px; font-weight: bold; color: #444;">Additional
+                    Details</label>
+                <textarea id="additional_details" name="additional_details" rows="4"
+                    placeholder="Any special requests or details?"
+                    style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box;"></textarea>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button type="submit" class="btn-view"
+                    style="padding: 15px 60px; font-size: 18px; border: none; cursor: pointer;">Confirm Booking
+                    Request</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

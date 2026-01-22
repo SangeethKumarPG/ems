@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- ======================
+        HERO SLIDESHOW
+  ======================= -->
+<div class="hero-bg">
+  <div class="hero-bg-overlay"></div>
+  <img src="https://i.pinimg.com/1200x/7c/94/77/7c9477dc7b139d45868aa0a3dd74b65d.jpg" class="hero-bg-slide active">
+  <img src="https://i.pinimg.com/1200x/dd/a1/18/dda118788904d1ae1affe3ca186620ee.jpg" class="hero-bg-slide">
+  <img src="https://i.pinimg.com/736x/7a/da/fb/7adafbcc061836f2bfdf54a35be6745f.jpg" class="hero-bg-slide">
+  <img src="https://i.pinimg.com/1200x/2f/d8/a9/2fd8a946f70a0d794ed57e19406f226d.jpg" class="hero-bg-slide">
+  <img src="https://i.pinimg.com/1200x/80/b0/9a/80b09ae87af9f69c868eb3a029851b67.jpg" class="hero-bg-slide">
+
+  <div class="hero-bg-content">
+    <h1>Welcome to TriAura</h1>
+    <p>Your Premier Event Management Partner</p>
+  </div>
+</div>
+
+<div style="background: #fff; padding-top: 50px; padding-bottom: 50px;">
+  <h1>Our Services</h1>
+  <p>We provide a wide range of event planning services</p>
+
+  <div class="event-grid">
+    {% for event in events %}
+    <div class="event-card">
+      {% if event.image %}
+      <img src="{{ event.image.url }}" alt="{{ event.title }}">
+      {% elif event.image_url %}
+      <img src="{{ event.image_url }}" alt="{{ event.title }}">
+      {% else %}
+      <img src="https://via.placeholder.com/300x200" alt="{{ event.title }}">
+      {% endif %}
+      <div class="event-card-content">
+        <h3>{{ event.title }}</h3>
+        <p>{{ event.description|truncatewords:20 }}</p>
+        <a href="{% url 'event_detail' event.id %}" class="btn-view">View Details</a>
+      </div>
+    </div>
+    {% empty %}
+    <p style="text-align: center; grid-column: 1 / -1;">No events available at the moment. Please check back later.</p>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- Dream Wedding Popup -->
+<div class="dream-popup" id="dreamPopup">
+  <button class="close-btn" onclick="document.getElementById('dreamPopup').style.display='none'">&times;</button>
+  <h2>Planning an <span style="color:#d61b35;">#dreamEvent?</span></h2>
+  <p>Let's bring your dream event to life</p>
+  <div class="btn-row">
+    <button
+      onclick="window.location.href='{% if user.is_authenticated %}#{% else %}{% url 'login' %}{% endif %}'">YES</button>
+    <button onclick="document.getElementById('dreamPopup').style.display='none'">NO</button>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  const slides = document.querySelectorAll('.hero-bg-slide');
+  let index = 0;
+
+  setInterval(() => {
+    if (slides.length > 0) {
+      slides[index].classList.remove('active');
+      index = (index + 1) % slides.length;
+      slides[index].classList.add('active');
+    }
+  }, 4000);
+</script>
+{% endblock %}

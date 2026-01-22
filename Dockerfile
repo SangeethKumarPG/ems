@@ -33,7 +33,11 @@ USER django
 EXPOSE 8000
 
 # Collect static files (if needed)
-RUN python manage.py collectstatic --noinput
+# Add a startup script
+COPY docker-entrypoint.sh /app/docker-entrypoint.sh
+RUN chmod +x /app/docker-entrypoint.sh
+
+ENTRYPOINT ["/app/docker-entrypoint.sh"]
 
 # Default command
 CMD ["gunicorn", "ems.wsgi:application", "--bind", "0.0.0.0:8000"]

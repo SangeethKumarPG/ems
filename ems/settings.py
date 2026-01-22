@@ -32,6 +32,11 @@ ALLOWED_HOSTS = [
     '*',
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://emsdemo.spensol.com',
+    'https://www.emsdemo.spensol.com',
+]
+
 
 # Application definition
 

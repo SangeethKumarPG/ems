@@ -1,5 +1,5 @@
 # Use official slim Python base image for smaller attack surface
-FROM python:3.10.12-slim
+FROM python:3.12-slim
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1 \

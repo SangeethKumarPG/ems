@@ -1,59 +1,39 @@
-# Use an official Python 3.10.12 slim image as a base
-FROM python:3.10.12-slim as builder
-
-# Set environment variables
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
-
-# Set the working directory
-WORKDIR /app
-
-# Install system dependencies required for building Python packages
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential \
-    && rm -rf /var/lib/apt/lists/*
-
-# Install Python dependencies
-COPY requirements.txt .
-RUN pip wheel --no-cache-dir --no-deps --wheel-dir /app/wheels -r requirements.txt
-RUN pip wheel --no-cache-dir --no-deps --wheel-dir /app/wheels gunicorn
-
-# Final Stage
+# Use official slim Python base image for smaller attack surface
 FROM python:3.10.12-slim
 
-# Create a non-privileged user to run the app
-RUN groupadd -r appgroup && useradd -r -g appgroup -s /sbin/nologin appuser
-
 # Set environment variables
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
-ENV PATH="/home/appuser/.local/bin:${PATH}"
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
 
-# Set the working directory
+# Create a non-root user
+RUN addgroup --system django && adduser --system --group --no-create-home django
+
+# Set work directory
 WORKDIR /app
 
-# Copy wheels from builder and install
-COPY --from=builder /app/wheels /wheels
-COPY --from=builder /app/requirements.txt .
-RUN pip install --no-cache-dir /wheels/*
+# Install system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libsqlite3-0 gcc \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Copy the project files
-COPY --chown=appuser:appgroup . .
+# Copy and install dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Ensure necessary directories exist and have correct permissions
-RUN mkdir -p /app/static /app/media && \
-    chown -R appuser:appgroup /app/static /app/media /app
+# Copy project files
+COPY . .
 
-# Ensure the database file has correct permissions
-# SQLite needs the directory to be writable for lock files
-RUN if [ -f db.sqlite3 ]; then chown appuser:appgroup db.sqlite3 && chmod 664 db.sqlite3; fi
+# Change ownership to non-root user
+RUN chown -R django:django /app
 
-# Switch to the non-privileged user
-USER appuser
+# Switch to non-root user
+USER django
 
-# Expose the application port
+# Expose port (optional if behind reverse proxy)
 EXPOSE 8000
 
-# High-security production-ready command
-# Using gunicorn for better security and performance than manage.py runserver
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "3", "--access-logformat", "%(h)s %(l)s %(u)s %(t)s \"%(r)s\" %(s)s %(b)s \"%(f)s\" \"%(a)s\"", "ems.wsgi:application"]
+# Collect static files (if needed)
+RUN python manage.py collectstatic --noinput
+
+# Default command
+CMD ["gunicorn", "your_project_name.wsgi:application", "--bind", "0.0.0.0:8000"]

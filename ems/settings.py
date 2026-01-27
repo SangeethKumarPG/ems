@@ -152,14 +152,14 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = os.environ.get('EMAIL_ID')
-EMAIL_HOST_PASSWORD = os.environ.get('GOOGLE_APP_ID')
+EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('GMAIL_APP_PASSWORD')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 if not EMAIL_HOST_USER:
-    print(f"WARNING: EMAIL_ID is NOT set in environment! ({os.environ.get('EMAIL_ID')})")
+    print(f"WARNING: EMAIL_USER is NOT set in environment! ({os.environ.get('EMAIL_USER')})")
 if not EMAIL_HOST_PASSWORD:
-    print("WARNING: GOOGLE_APP_ID is NOT set in environment!")
+    print("WARNING: GMAIL_APP_PASSWORD is NOT set in environment!")
 
 if EMAIL_HOST_USER and EMAIL_HOST_PASSWORD:
     print(f"DEBUG: Email settings loaded for {EMAIL_HOST_USER}")

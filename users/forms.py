@@ -15,6 +15,26 @@ class UserRegisterForm(forms.ModelForm):
         model = User
         fields = ['username', 'email', 'password']
 
+    def clean_phone(self):
+        phone = self.cleaned_data.get('phone')
+        if not phone.isdigit():
+            raise forms.ValidationError("Phone number must contain only digits.")
+        if len(phone) < 10:
+            raise forms.ValidationError("Phone number must be at least 10 digits long.")
+        return phone
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError("Email already exists.")
+        return email
+
+    def clean_password(self):
+        password = self.cleaned_data.get('password')
+        if len(password) < 8:
+            raise forms.ValidationError("Password must be at least 8 characters long.")
+        return password
+
     def save(self, commit=True):
         user = super().save(commit=False)
         user.first_name = self.cleaned_data['name'] # Storing full name in first_name for simplicity or consider splitting

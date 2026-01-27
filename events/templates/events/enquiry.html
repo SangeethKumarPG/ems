@@ -93,35 +93,39 @@
         <h2>Event Enquiry</h2>
         <form method="POST">
             {% csrf_token %}
+            {% if form.errors %}
+            <div style="color: red; margin-bottom: 20px; text-align: left; font-size: 0.9rem;">
+                {% for field in form %}
+                {% for error in field.errors %}
+                <div>• {{ field.label }}: {{ error }}</div>
+                {% endfor %}
+                {% endfor %}
+            </div>
+            {% endif %}
+
             <div class="form-group">
-                <label for="id_full_name">Full Name</label>
-                <input type="text" id="id_full_name" name="full_name" placeholder="E.g. John Doe" required>
+                <label for="{{ form.full_name.id_for_label }}">Full Name</label>
+                {{ form.full_name }}
             </div>
 
             <div class="form-group">
-                <label for="id_email">Email Address</label>
-                <input type="email" id="id_email" name="email" placeholder="email@example.com" required>
+                <label for="{{ form.email.id_for_label }}">Email Address</label>
+                {{ form.email }}
             </div>
 
             <div class="form-group">
-                <label for="id_phone">Phone Number</label>
-                <input type="tel" id="id_phone" name="phone" placeholder="+91 0000 000 000" required>
+                <label for="{{ form.phone.id_for_label }}">Phone Number</label>
+                {{ form.phone }}
             </div>
 
             <div class="form-group">
-                <label for="id_event_interest">Event Type of Interest</label>
-                <select id="id_event_interest" name="event_interest">
-                    <option value="wedding">Wedding</option>
-                    <option value="birthday">Birthday</option>
-                    <option value="corporate">Corporate</option>
-                    <option value="other">Other Celebration</option>
-                </select>
+                <label for="{{ form.event_interest.id_for_label }}">Event Type of Interest</label>
+                {{ form.event_interest }}
             </div>
 
             <div class="form-group">
-                <label for="id_details">Additional Details / Questions</label>
-                <textarea id="id_details" name="details" rows="5"
-                    placeholder="Tell us more about what you're looking for..."></textarea>
+                <label for="{{ form.details.id_for_label }}">Additional Details / Questions</label>
+                {{ form.details }}
             </div>
 
             <button type="submit" class="btn-submit-enquiry">SUBMIT ENQUIRY</button>
